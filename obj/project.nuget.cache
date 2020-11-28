@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PubSuZdVBIktRe1Ax3S0d2f/v6v/OGCBtYMaYtwXdNoxH/2DvevKN3h0bfIW7QRt/hw+RZE/GPv6sEwJd/eo7A==",
+  "dgSpecHash": "niO7V7OM872jP/wu4n8iYoOn2XvO8h/y+qIkMX+fj1mholqJaO1PJkAjvhs+TMYF8/i47OVS6gtp3m2ECLOSiw==",
   "success": true,
-  "projectFilePath": "C:\\dev\\CodeUhSite\\CodeUhSite\\CodeUhSite.csproj",
+  "projectFilePath": "C:\\dev\\CodeUhsBlazorAudioPlayer\\CodeUhSite.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dakota Brant\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",
     "C:\\Users\\Dakota Brant\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.6\\microsoft.aspnetcore.components.3.1.6.nupkg.sha512",

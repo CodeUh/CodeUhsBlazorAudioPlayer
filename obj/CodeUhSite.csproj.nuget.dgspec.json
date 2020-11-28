@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\CodeUhSite\\CodeUhSite\\CodeUhSite.csproj": {}
+    "C:\\dev\\CodeUhsBlazorAudioPlayer\\CodeUhSite.csproj": {}
   },
   "projects": {
-    "C:\\dev\\CodeUhSite\\CodeUhSite\\CodeUhSite.csproj": {
+    "C:\\dev\\CodeUhsBlazorAudioPlayer\\CodeUhSite.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\CodeUhSite\\CodeUhSite\\CodeUhSite.csproj",
+        "projectUniqueName": "C:\\dev\\CodeUhsBlazorAudioPlayer\\CodeUhSite.csproj",
         "projectName": "CodeUhSite",
-        "projectPath": "C:\\dev\\CodeUhSite\\CodeUhSite\\CodeUhSite.csproj",
+        "projectPath": "C:\\dev\\CodeUhsBlazorAudioPlayer\\CodeUhSite.csproj",
         "packagesPath": "C:\\Users\\Dakota Brant\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\CodeUhSite\\CodeUhSite\\obj\\",
+        "outputPath": "C:\\dev\\CodeUhsBlazorAudioPlayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
