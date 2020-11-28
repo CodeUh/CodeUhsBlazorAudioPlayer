@@ -1,0 +1,128 @@
+﻿@inject IJSRuntime js;
+<div class="card mb-2 bg-dark text-black mx-auto glow" style="max-width:600px;min-width:240px">
+    <div class="card-body text-center">
+        <h5 class="card-title">@(IsPlaying ? $"Now Playing: {CurrentTrack.TrackName}" : "Select a Track Below")</h5>
+        <div style="width:auto">
+            <span style="font-size:200px;cursor:pointer;" class="@GetPlayPauseCss()" title="@GetPlayPauseTitle()" @onclick="ClickPlayPause"></span>
+            <br />
+            <audio id="player" style="width:75%" integrity="" controls>
+                <source id="playerSource" src="" />
+            </audio>
+        </div>
+    </div>
+    <ul class="list-group list-group-flush">
+        @foreach(var track in AudioTracks)
+        {
+            <AudioTrack AudioTrackData="track" TrackSelected="OnTrackSelected"/>
+        }
+    </ul>
+    </div>   
+@code {
+
+    [Parameter] public List<AudioTrackData> AudioTracks { get; set; }
+
+    public AudioTrackData CurrentTrack { get; set; }
+
+    public bool IsPlaying { get; set; } = false;
+
+    public bool IsEventListenersAdded { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AudioTracks[0].IsSelected = true;
+        CurrentTrack = AudioTracks[0];
+    }
+
+    public async Task PlayAudioFile(string audioFile)
+    {
+        await js.InvokeVoidAsync("PlayAudioFile", new object[] { audioFile });
+        if (!IsEventListenersAdded)
+        {
+            var audioPlayer = DotNetObjectReference.Create(this);
+            await js.InvokeVoidAsync("AddAudioEventListeners", audioPlayer);
+            IsEventListenersAdded = true;
+        }
+    }
+
+    public async Task StopAudioFile()
+    {
+        await js.InvokeVoidAsync("StopAudioFile");
+    }
+
+    public string GetPlayPauseCss()
+    {
+        return IsPlaying ? "oi oi-play-circle glow" : "oi oi-play-circle";
+    }
+
+    public string GetPlayPauseTitle()
+    {
+        return IsPlaying ? "Stop" : "Play";
+    }
+
+    public async Task ClickPlayPause()
+    {
+        if (IsPlaying)
+        {
+            await StopAudioFile();
+        }
+        else
+        {
+            await PlayAudioFile(CurrentTrack.TrackFile);
+        }
+
+        IsPlaying = !IsPlaying;
+
+        StateHasChanged();
+    }
+
+    [JSInvokable("AudioEnded")]
+    public async Task AudioEnded()
+    {
+        CurrentTrack.IsSelected = false;
+        var currentTrackIndex = AudioTracks.IndexOf(CurrentTrack);
+        if((currentTrackIndex + 1) == AudioTracks.Count)
+        {
+            AudioTracks[0].IsSelected = true;
+            CurrentTrack = AudioTracks[0];
+        }
+        else
+        {
+            AudioTracks[currentTrackIndex + 1].IsSelected = true;
+            CurrentTrack = AudioTracks[currentTrackIndex + 1];
+        }
+        await ClickPlayPause();
+        if (!IsPlaying)
+            await ClickPlayPause();
+        StateHasChanged();
+    }
+
+    [JSInvokable("AudioStopped")]
+    public void AudioStopped()
+    {
+        IsPlaying = false;
+        StateHasChanged();
+    }
+
+    [JSInvokable("AudioStarted")]
+    public void AudioStarted()
+    {
+        IsPlaying = true;
+        StateHasChanged();
+    }
+
+    public async Task OnTrackSelected(AudioTrackData track)
+    {
+        foreach(var t in AudioTracks)
+        {
+            t.IsSelected = false;
+        }
+        track.IsSelected = true;
+
+        CurrentTrack = track;
+        await StopAudioFile();
+        await ClickPlayPause();
+        if (!IsPlaying)
+            await ClickPlayPause();
+    }
+
+}

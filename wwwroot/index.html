@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>CodeUh's Music</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+</head>
+
+<body>
+    <app>Loading...</app>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script integrity="">
+        window.PlayAudioFile = (src) => {
+            var audio = document.getElementById('player');
+            if (audio != null) {
+                var audioSource = document.getElementById('playerSource');
+                if (audioSource != null) {
+                    audioSource.src = src;
+                    audio.load();
+                    audio.play();
+                }
+            }
+        }
+    </script>
+    <script integrity="">
+        window.StopAudioFile = function () {
+            var audio = document.getElementById('player');
+            if (audio != null) {
+                var audioSource = document.getElementById('playerSource');
+                if (audioSource != null) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+            }
+        }
+    </script>
+    <script integrity="">
+        window.AddAudioEventListeners = (dotNetClass) => {
+            var audio = document.getElementById('player');
+            if (audio != null) {
+                audio.addEventListener('pause', async function () {
+                    await dotNetClass.invokeMethodAsync("AudioStopped");
+                });
+
+                audio.addEventListener('ended', async function () {
+                    await dotNetClass.invokeMethodAsync("AudioEnded");
+                });
+
+                audio.addEventListener('play', async function () {
+                    await dotNetClass.invokeMethodAsync("AudioStarted");
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

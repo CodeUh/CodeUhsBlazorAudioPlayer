@@ -1,0 +1,51 @@
+﻿@page "/"
+
+<style>
+body {
+  background-color: black;
+}
+
+    .glow {
+        color: #000000;
+        text-align: center;
+        -webkit-animation: glow 1s ease-in-out infinite alternate;
+        -moz-animation: glow 1s ease-in-out infinite alternate;
+        animation: glow 1s ease-in-out infinite alternate;
+    }
+
+@@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px #e62012, 0 0 20px #e62012, 0 0 30px #e60008, 0 0 40px #e60008, 0 0 50px #e60008, 0 0 60px #e60008, 0 0 70px #e60008;
+    }
+
+    to {
+        text-shadow: 0 0 20px #e62012, 0 0 30px #ff4747, 0 0 40px #ff4747, 0 0 50px #ff4747, 0 0 60px #ff4747, 0 0 70px #ff4747, 0 0 80px #ff4747;
+    }
+}
+</style>
+
+<div class="bg-dark text-white text-center" >
+    <h1 class="glow">CodeUh's Music</h1>
+    <AudioPlayer AudioTracks="AudioTracks" />
+    <br />
+    
+    <p class="glow mx-auto" style="max-width:600px;min-width:240px">Contact me at <a href="mailto:codeuh@gmail.com">codeuh@gmail.com</a>. Add me as a friend on <a href="https://www.facebook.com/dakota.brant.7">Facebook</a> and checkout my wall for music videos. Reach out to me if you like my music or website. I'd love to work with you on music and technology.</p>
+    
+</div>
+
+
+    @code
+{
+        public List<AudioTrackData> AudioTracks { get; set; }
+
+        protected override void OnInitialized()
+        {
+            AudioTracks = new List<AudioTrackData> {
+            new AudioTrackData { TrackName = "Messed Up", TrackFile = "/mp3s/messedup.mp3" },
+            new AudioTrackData { TrackName = "See You", TrackFile = "/mp3s/iwannacu.mp3" },
+            new AudioTrackData { TrackName = "Don't Stare", TrackFile = "/mp3s/dontstare.mp3" },
+            new AudioTrackData { TrackName = "Doublespeak", TrackFile = "/mp3s/prbb.mp3" },
+            new AudioTrackData { TrackName = "Fortunate", TrackFile = "/mp3s/fortunate.mp3" }
+        };
+        }
+    }

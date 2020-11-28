@@ -1,0 +1,16 @@
+﻿<li style="cursor:pointer;" class="@GetTrackCss()" @onclick=@ClickTrack>@AudioTrackData.TrackName</li>
+
+@code {
+    [Parameter] public AudioTrackData AudioTrackData { get; set; }
+    [Parameter] public EventCallback<AudioTrackData> TrackSelected { get; set; }
+
+    string GetTrackCss()
+    {
+        return AudioTrackData.IsSelected ? "list-group-item  bg-transparent border-danger bg-dark text-danger glow" : "list-group-item bg-dark text-black";
+    }
+
+    async Task ClickTrack()
+    {
+        await TrackSelected.InvokeAsync(AudioTrackData);
+    }
+}
